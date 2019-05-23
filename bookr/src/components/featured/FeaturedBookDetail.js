@@ -2,14 +2,13 @@ import React from "react";
 import compose from 'recompose/compose';
 
 import { connect } from "react-redux";
-import { fetchBook } from "../../../actions";
+import { fetchBook } from "../../actions";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import StarRatingComponent from 'react-star-rating-component';
-import BookReviews from './BookReviews';
-import ReviewForm from './ReviewForm';
+import BookReviews from '../protected/books/BookReviews';
 
 
 
@@ -21,7 +20,7 @@ const styles = theme => ({
     },
   });
 
-class BookDetail extends React.Component {
+class FeaturedBookDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,7 +41,7 @@ class BookDetail extends React.Component {
         if(!this.props.activeBook.authors || !this.props.activeBook.reviews) return (<div>Book is loading...</div>)
         
         return (
-            <div className="bookpage_left_wrapper">
+            <div>
                 <div className="bookpage_img_wrapper">
                     <img src={this.props.activeBook.cover_url} />
                     <div className="star_rating">
@@ -52,10 +51,6 @@ class BookDetail extends React.Component {
                             //value={this.props.activeBook.stars.reduce((a,b) => a + b, 0) / this.props.activeBook.stars.length}
                             value={this.props.activeBook.average}
                         />
-                        
-                    </div>
-                    <div className="right">
-                        <ReviewForm id={this.state.id} fetchBookWithNewReview={this.fetchBookAfterReview}/>
                     </div>
                 </div> 
                 
@@ -63,11 +58,9 @@ class BookDetail extends React.Component {
                     <Typography variant="h5" component="h3">
                         {this.props.activeBook.title}
                     </Typography>
-                    <Typography variant="h6" component="h5">
-                        by {' '} {this.props.activeBook.authors.map( author => <span key={author.name}> {author.name} {' '} </span>)}
+                    <Typography variant="h5" component="h5">
+                        {this.props.activeBook.authors.map( author => <span key={author.name}> {author.name} {' '} </span>)}
                     </Typography>
-                    <span># of Reviews:{' '}{this.props.activeBook.reviews.length} {' '}</span>
-
                     <Typography component="p">
                         {this.props.activeBook.description}
                     </Typography>
@@ -88,19 +81,12 @@ const mapStateToProps = state => ({
     activeBook: state.activeBook
 })
 
-BookDetail.propTypes = {
+FeaturedBookDetail.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
 
 export default compose(
-    withStyles(styles, { name: 'BookDetail' }),
+    withStyles(styles, { name: 'FeaturedBookDetail' }),
     connect(mapStateToProps, {fetchBook})
-  )(BookDetail)
-
-/*
-export default connect(
-    mapStateToProps,
-    { fetchBook }
-)(withStyles(styles)(BookDetail))
-*/
+  )(FeaturedBookDetail)

@@ -31,15 +31,19 @@ class ReviewForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        console.log("member id: ", this.props.member_id)
         const newReview = {
             rating: this.state.rating,
             comment: this.state.comment,
             book_id: this.props.activeBook.id,
-            user_id: this.props.member.id
+            user_id: localStorage.getItem("user_id"),
         }
         this.props.postReview(newReview)
-        window.location.reload();
-        //this.props.fetchBookWithNewReview(this.props.activeBook.id)
+        
+        .then(() => {
+            //setTimeout( () => {window.location.reload()}, 500)
+            this.props.fetchBookWithNewReview(this.props.activeBook.id)
+        });
 
         this.handleClose();
         this.setState({
@@ -78,17 +82,15 @@ class ReviewForm extends React.Component {
                     fullWidth={this.state.fullWidth}
                 >
                 <DialogTitle id="form-dialog-title">Add Review</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                    
-                    <p>{this.props.member.username}</p>
-                        <p>{this.props.activeBook.title}</p>
-                        <StarRatingComponent 
+                <DialogContent> 
+                    <StarRatingComponent 
                             name="rate1" 
                             starCount={5}
                             value={rating}
                             onStarClick={this.onStarClick}
                         />
+                    <DialogContentText> 
+                        
                     </DialogContentText>
                     <TextField
                         autoFocus
@@ -100,7 +102,6 @@ class ReviewForm extends React.Component {
                         name="comment"
                         placeholder="Add Review..."
                         value={this.state.comment}
-                        rowMax="8"
                         fullWidth
                         multiline
                     />
@@ -120,6 +121,7 @@ class ReviewForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    member_id : state.member_id,
     member : state.member,
     activeBook : state.activeBook,
 })

@@ -51,15 +51,32 @@
 }
 
 header {
-  width:100%;
-  box-shadow:0 0 5px #00000030;
-  position:fixed;
-  top:0;
-  z-index:1;
-  background:white;
-  height:80px;
+  width: 100%;
+  box-shadow: 0 0 5px #00000030;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background: #078C54;
+  height: 80px;
+  display: flex;
+  align-items: center;
 }
 
+.header-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-wrapper {
+  width:188px;
+}
+.logo-wrapper img {
+  width:100%;
+}
 .fullpage_wrap {
   width:100%;
 }

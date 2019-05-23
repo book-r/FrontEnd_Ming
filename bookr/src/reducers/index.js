@@ -7,7 +7,8 @@ POSTREVIEW_START, POSTREVIEW_SUCCESS, POSTREVIEW_FAIL } from "../actions";
 const initialState = {
     books : [],
     users : [],
-    member : {},
+    member : "",
+    member_id : "",
     activeBook : {},
     error : "",
     signingUp : false,
@@ -26,15 +27,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 signingUp : true, 
-                error : ''
+                error : '',
+                token: "",
+                //member: "",
+                //member_id: ""
             }
         case SIGNUP_SUCCESS:
-            console.log(action.payload, action.token)
+            console.log(action.username, action.token)
             return {
                 ...state,
                 signingUp : false,
-                users : action.payload,
-                member : action.payload[action.payload.length-1],
+                member : action.username,
+                member_id : action.user_id,
                 token : action.token
             }
         case SIGNUP_FAIL:
@@ -51,15 +55,20 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 logginIn : true,
                 error : "",
+                token: "",
+                //member: "",
+                //member_id: ""
+
             }
         case LOGIN_SUCCESS:
-            console.log(action.payload[1])
+            console.log("from reducer: " , action.user_id, action.username)
             
             return {
                 ...state,
                 logginIn : false,
-                token : action.payload[0],
-                member : action.payload[1]
+                member : action.username,
+                member_id : action.user_id,
+                token : action.token
             }
         case LOGIN_FAIL:
             console.log(action.payload)

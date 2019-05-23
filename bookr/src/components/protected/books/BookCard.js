@@ -30,23 +30,26 @@ const BookCard = props => {
         <Card className={`${classes.card} bookcard`}>
         <Link to={`/member-area/book/${props.book.id}`}>
             <CardActionArea>
+                <div className="cardMedia-wrapper">
                 <CardMedia
                 className={classes.media}
                 image={props.book.cover_url}
                 title={props.book.title}
                 />
+                </div>
                 <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h7" component="h3">
                     {props.book.title}
                 </Typography>
-                <Typography gutterBottom variant="h7" component="h3">
-                    by {props.book.author}
-                </Typography>
+                
                 <StarRatingComponent 
                     name="rate1" 
                     starCount={5}
                     value={props.book.average}
                 />
+
+
+
                 </CardContent>
             </CardActionArea>
             </Link>
@@ -62,6 +65,9 @@ BookCard.propTypes = {
 export default withStyles(styles)(BookCard);
 
 /* 
+<Typography gutterBottom variant="h7" component="h3">
+                    by {props.book.author}
+                </Typography>
 <Typography component="p">
     {props.book.shortDescription}
 </Typography>
@@ -77,3 +83,4 @@ export default withStyles(styles)(BookCard);
                 </Button>
             </CardActions>
 */
+
