@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchBook } from "../../../actions";
 import BookSubjects from "./BookSubjects";
 import BookInfo from "./BookInfo";
+import AdditionalBooks from "./AdditionalBooks";
 
 class BookSideInfo extends React.Component {
     constructor(props) {
@@ -17,11 +18,13 @@ class BookSideInfo extends React.Component {
     }
 
     render() {
-     if(!this.props.activeBook.subjects) return <div>Loading Additional Book Info...</div>
+     //if(!this.props.activeBook.subjects) return <div>Loading Additional Book Info...</div>
         return (
             <div className="bookpage_right_wrapper">
-                <BookSubjects subjects={this.props.activeBook.subjects} />
+                {this.props.activeBook.subjects ? <BookSubjects subjects={this.props.activeBook.subjects} /> : null}
                 <BookInfo book={this.props.activeBook} />
+                <h2>Top Rated Books: </h2>
+                <AdditionalBooks />
             </div>
            /* <div className="bookpage_right_wrapper">
                 {this.props.activeBook.subjects.map( subject => <span>{subject.name}{' '}</span> )}
