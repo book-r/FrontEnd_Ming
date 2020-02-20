@@ -86,6 +86,7 @@ footer {
 }
 .logo-wrapper img {
   width:100%;
+  overflow: hidden;
 }
 .fullpage_wrap {
   width:100%;
